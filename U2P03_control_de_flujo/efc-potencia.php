@@ -6,7 +6,7 @@ bienvenidos ecf-diferencia
 </head>
 <body>
 <p>Introduce dos numeros para calcular su potencia</p>
-<form action="ecf-potencia.php" method="post">
+<form action="efc-potencia.php" method="post">
 Numero1: <input type="text" name="A">
 Numero2: <input type="text"  name="B">
 <input type="submit" name="Pasar datos">
@@ -19,7 +19,6 @@ for($i=0;$i<$b;$i+=1){
     $mul*=$a;
 }
 echo $mul;
-
 ?>
 </body>
 </html>
