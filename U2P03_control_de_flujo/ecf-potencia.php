@@ -1,7 +1,7 @@
 <html>
 <head>
 <title>
-bienvenidos ecf-diferencia
+		bienvenidos ecf-potencia
 </title>
 </head>
 <body>
