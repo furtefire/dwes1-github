@@ -15,6 +15,34 @@ no bisiesto<input type="radio" value="no" name="Y" checked="checked">
 <?php
 $x=$_POST["X"];
 $b=$_POST["Y"];
+$y=$_POST["X"];
+$y=strtolower($y);
+
+if($y=="enero"){
+    $x=1;
+}elseif ($y=="febrero"){
+    $x=2;
+}elseif ($y=="marzo"){
+    $x=3;
+}elseif ($y=="abril"){
+    $x=4;
+}elseif ($y=="mayo"){
+    $x=5;
+}elseif ($y=="junio"){
+    $x=6;
+}elseif ($y=="julio"){
+    $x=7;
+}elseif ($y=="agosto"){
+    $x=8;
+}elseif ($y=="septiembre"){
+    $x=9;
+}elseif ($y=="octubre"){
+    $x=10;
+}elseif ($y=="noviembre"){
+    $x=11;
+}elseif ($y=="diciembre"){
+    $x=12;
+}
 switch ($x){
     case 1: 
         echo "31";
