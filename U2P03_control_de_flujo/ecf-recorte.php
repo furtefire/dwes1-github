@@ -12,7 +12,12 @@ nombre<input type="text" name="X">
 </form>
 <?php
 $x=$_POST["X"];
-echo  "Mi nombre es ".$x;
+for($i=strlen($x);$i>-1;$i--){
+    for($h=0;$h<$i-1;$h++){
+        echo $x[$h];
+    }
+    echo "<br>";
+}
 ?>
 </body>
 </html>
