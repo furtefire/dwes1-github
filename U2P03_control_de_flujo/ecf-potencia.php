@@ -7,8 +7,8 @@
 <body>
 <p>Introduce dos numeros para calcular su potencia</p>
 <form action="ecf-potencia.php" method="post">
-Numero1: <input type="text" name="A">
-Numero2: <input type="text"  name="B">
+Numero1: <input type="number" name="A">
+Numero2: <input type="number"  name="B">
 <input type="submit" name="Pasar datos">
 </form>
 <?php

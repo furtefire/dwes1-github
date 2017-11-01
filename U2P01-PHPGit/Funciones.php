@@ -53,7 +53,10 @@ function precioSuGlo($coste){
 }
 echo "<h4>El precio del producto en rebajas es de ".precioSuGlo(100)."</h4>";
 //Funciones de fecha y hora
-echo "<h3>hoy es ".date("d-m-y")."y son las ".date("h:i")."</h3>";
+function fecha(){
+    echo "<h3>hoy es ".date("d-m-y")."y son las ".date("h:i")."</h3>";
+    
+}
 ?>
 </body>
 </html>
