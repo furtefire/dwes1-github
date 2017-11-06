@@ -1,22 +1,30 @@
 <html>
-<head>
-<title>
-bienvenidos ecf-acumulador
-</title>
-</head>
 <body>
-<p>Introduce dos numeros</p>
-<form action="ecf-acumulador.php" method="post">
-Numero1: <input type="hidden" name="A"><?php
-if($_POST!=50)
-$x+=$_POST["A"];
-?>
 
-<input type="submit" name="Pasar datos">
-</form>
-<?php
-echo $_POST["A"];
-
+<?php 
+if(isset($_POST["enviar"])){
+   
+    $acum=$_POST["hid"]+$_POST["num"]; 
+ 
+}else{
+    
+    $acum=0;
+}
+if($acum<=50){
+    ?>
+    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'],ENT_QUOTES, "UTF-8" );?>" method="post">
+    Acumulador:<input type="text" name="num"> 
+	<input type="hidden" name="hid" value=<?php echo $acum;?> >
+    <input type="submit" name="enviar">
+	</form>
+	
+	<?php
+	
+}else{
+    
+    echo "<p>Te has pasado de 50</p>";
+}
 ?>
-</body>
+    <a href="index.php">Volver</a>
+ </body>
 </html>

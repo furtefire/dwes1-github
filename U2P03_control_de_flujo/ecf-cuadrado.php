@@ -1,29 +1,33 @@
 <html>
-<head>
-<title>
-bienvenidos ecf-cuadrado
-</title>
-</head>
 <body>
-<p>Introduzca un numero X para saber su cuadrado</p>
-<form action="ecf-cuadrado.php" method="post">
-Numero1: <input type="number" name="X">
-<input type="submit" name="Pasar datos">
-</form>
-<?php
-$x=$_POST["X"];
-$cont=$x;
-$aux=1;
-for($i=1;$i<=$x;$i++){
-    $aux=$i;
-    $cont=$x*$i;
-    for($aux;$aux<=$cont;$aux++){
-        echo "<td>".$i*$aux."</td>";
+<?php 
+if(!isset($_POST['enviar'])){
+    ?>
+    <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
+	Numero:<input type="text" name="num">
+    <input type="submit" name="enviar">
+	</form>
+	<?php
+}else{
+    ?><table border="1"><?php
+    for($i=1;$i<=$_POST["num"];$i++){
+        if($i%2==0){
+        ?> <tr bgcolor="lightblue"><?php
+        }else{
+        ?> <tr><?php
+        }
+        for($j=1;$j<=$_POST["num"];$j++){
+        ?>
+        	<td align="center" style='padding:0.3cm'><?php echo $j*$i?></td>
+        
+        <?php
+        }
+        ?></tr><?php
     }
-    echo "<br>";
    
-
 }
 ?>
-</body>
+	</table>
+    <a href="index.php">Volver</a>
+ </body>
 </html>
