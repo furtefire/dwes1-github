@@ -7,7 +7,7 @@
     <br>
     <a href="ecf-diferencia.php">ecf-diferencia.php</a>
     <br>
-    <a href="index.php">Volver</a>
+    <a href="ecf-factorial.php">ecf-factorial</a>
     <br>
     <a href="index.php">Volver</a>
     <br>
