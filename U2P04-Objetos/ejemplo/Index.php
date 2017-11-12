@@ -1,23 +1,22 @@
-<html>
-<head>
-<title>
-Ejemplo de objetos
-</title>
-</head>
-<body>
+<?php 
+include ("Triangulo.php");
+if(!isset($_POST['enviar'])){ 
+?>
 <p>Inserte base y altura</p>
-<form action="Index.php" method="post">
-Base: <input type="number" name="alt">
-Altura:<input type="number" name="bas">
-<input type="submit" name="Pasar datos">
+<form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
+Base: <input type="number" name="bas">
+Altura:<input type="number" name="alt">
+<input type="submit" name="enviar">
 </form>
 <?php
-include 'Triangulo.php';
-if (isset($_POST["enviar"])){
-    $tri1 = new Triangulo($_POST["alt"] , $_POST["bas"]);
-echo "<p>Area: ".$tri1->calcularArea()."</p>";
-echo $tri1;
+}else{
+ $base=$_POST['bas'];
+ $altura=$_POST['alt'];
+ $tri=new Triangulo($base, $altura);
+ echo "<p>Area: ".$tri->calcularArea()."</p>";
+ $tri->setAltura("12");
+ $tri->setBase("45");
+ echo "<p> ahora la altura es ".$tri->getAltura()."</p>";
+ echo "<p> ahora la base es ".$tri->getBase()."</p>";
 }
 ?>
-</body>
-</html>

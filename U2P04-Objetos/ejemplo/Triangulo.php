@@ -1,10 +1,3 @@
-<html>
-<head>
-<title>
-Ejemplo de objetos
-</title>
-</head>
-<body>
 <?php
 class Triangulo{
     public $base;
@@ -40,5 +33,3 @@ class Triangulo{
     }
 }
 ?>
-</body>
-</html>
