@@ -19,10 +19,18 @@ if(!isset($_POST['enviar'])){
     $genero=$_POST["genero"];
     $ti = new Tienda($cantante, $titulo, $ventas, $storage, $genero);
     echo "<p>Mi tienda tiene:".$ti->__toString()."</p>";
-  	$ti->setCantante("Ana rosa quintana");
-    $ti->setGenero("Terror");
+  	$ti->setCantante("Julio Iglesias");
+    $ti->setGenero("heavy metal");
     echo "<br>";
     echo "<p>Mi tienda tiene:".$ti->__toString()."</p>";
+    $ti->setStorage("200000");
+    $ti->getTitulo("Soy un Truan soy un señor");
+    $ti->setVentas("755144959.3");
+    foreach ($ti as $clave => $valor) {
+        echo "$clave => $valor\n";
+    }
+    echo "<br>";
+    echo "".$ti->__toString()."<br>";
     
 }
 ?>
