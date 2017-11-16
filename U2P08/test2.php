@@ -9,9 +9,12 @@ if (!isset($_SESSION['name'])){
 }else{
     if (isset($_POST['enviar'])){
         if ($_POST['capital']=="paris"){
-            $vali=true;
+           
+            $_SESSION['test2']="Tu respuesta es correcta";
+            header('location:test3.php');
         }else{
-            $vali=false;
+            $_SESSION['test2']="Tu respuesta no es correcta";
+            header('location:test3.php');
         }
     }
     
@@ -30,16 +33,6 @@ if (!isset($_SESSION['name'])){
 	islas caiman:<input type="radio" name="islascaiman" name="capital">
     <input type="submit" name="enviar">
 	</form> 
-<?php 
-if (isset($_POST['enviar']))
-    if($vali==true){
-        $_SESSION['test2']="Tu respuesta es correcta";
-        header('location:test3.php');
-}else{
-        $_SESSION['test2']="Tu respuesta no es correcta";
-        header('location:test3.php');
-}
-?>
 
 </body>
 </html>

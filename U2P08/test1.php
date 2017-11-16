@@ -6,9 +6,11 @@ if (!isset($_SESSION['name'])){
 }else{
    if (isset($_POST['enviar'])){
        if ($_POST['color']=="blanco"){
-           $vali=true;
+           $_SESSION['test1']="Tu respuesta es correcta";
+           header('location:test2.php');
        }else{
-               $vali=false;
+           $_SESSION['test1']="Tu respuesta no es correcta";
+           header('location:test2.php');
            }
    }
 
@@ -27,17 +29,6 @@ if (!isset($_SESSION['name'])){
 	azul:<input type="radio" value="azul" name="color">
     <input type="submit" name="enviar">
 	</form> 
-<?php 
-if (isset($_POST['enviar']))
-    if($vali==true){
-        $_SESSION['test1']="Tu respuesta es correcta";
-        header('location:test2.php');
-}else{
-        $_SESSION['test1']="Tu respuesta no es correcta";
-        header('location:test2.php');
-}
-?>
-
 </body>
 </html>
 <?php 

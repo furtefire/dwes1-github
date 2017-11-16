@@ -8,10 +8,12 @@ if (!isset($_SESSION['name'])){
     
 }else{
     if (isset($_POST['enviar'])){
-        if ($_POST['dictador']=="ming"){
-            $vali=true;
+        if ($_POST['dictador']=="kim"){
+            $_SESSION['test3']="Tu respuesta es correcta";
+            header('location:resultados.php');
         }else{
-            $vali=false;
+            $_SESSION['test3']="Tu respuesta no es correcta";
+            header('location:resultados.php');
         }
     }
     
@@ -28,20 +30,8 @@ if (!isset($_SESSION['name'])){
 	kim jong un:<input type="radio" value="kim" name="dictador">
 	Vladimir Putin:<input type="radio" value="putin" name="dictador">
 	Donald Trump:<input type="radio" value="donal" name="dictador">
-	Ming:<input type="radio" value="ming" name="dictador">
     <input type="submit" name="enviar">
 	</form> 
-<?php 
-if (isset($_POST['enviar']))
-    if($vali==true){
-        $_SESSION['test3']="Tu respuesta es correcta";
-        header('location:resultados.php');
-}else{
-        $_SESSION['test3']="Tu respuesta no es correcta";
-        header('location:resultados.php');
-}
-?>
-
 </body>
 </html>
 <?php 

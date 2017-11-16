@@ -4,7 +4,7 @@ session_start ();
 if (!isset($_SESSION['name'])){
     header('location:registro.php');
 }else{
-    $mensaje="bienvenido ".$_SESSION['name'];
+    $mensaje="¡BIENVENIDO ".$_SESSION['name']." !";
 }
 ?>
 <html>
