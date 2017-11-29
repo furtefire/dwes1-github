@@ -24,7 +24,7 @@ class Animal{
 
     public function getImagen()
     {
-        return $this->imagen;
+        return "<img src='img/$this->imagen'height=100px width=90px>";
     }
 
     public function setChip($chip)
@@ -44,14 +44,8 @@ class Animal{
         $this->especie = $especie;
     }
 
-
-    public function setImagen($imagen)
-    {
-        $this->imagen = $imagen;
-    }
-
     public function __toString(){
-        return "El animal " .$this->especie. "Con el chip".$this->chip." se llama ".$this->nombre." Y este es <p><img src='img/".$this->imagen."'width=100 heigth=100/></p>"."";
+        return "El animal " .$this->especie. "Con el chip".$this->chip." se llama ".$this->nombre." Y este es ".$this->getImagen;
     }
     
     

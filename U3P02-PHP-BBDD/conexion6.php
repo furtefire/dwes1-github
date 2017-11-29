@@ -23,6 +23,15 @@ echo "<li>Contraseña del usuario en MySQL: $clave</li>";
 <?php
 $conexion = new mysqli($servidor,$usuario,$clave,"animales");
 $conexion->query("SET NAMES 'UTF8'");
+?>
+<table style='border:0'>
+<tr style='background-color:lightblue'>
+	<th>Chip</th>
+	<th>Nombre</th>
+	<th>Especie</th>
+	<th>Imagen</th>
+</tr>
+<?php
 $resultado = $conexion -> query("SELECT * FROM animal ORDER BY nombre");
 if($resultado->num_rows === 0) echo "<p>No hay animales en la base de datos</p>";
 while ($animal = $resultado->fetch_object('Animal')) {
@@ -35,7 +44,7 @@ while ($animal = $resultado->fetch_object('Animal')) {
     echo "</tr>";
 }
 ?>
-
+</table>
 <?php 
 mysqli_close($conexion);
 ?>
