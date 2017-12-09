@@ -6,7 +6,13 @@ Class Disco{
     private $descripcion;
     private $autor;
     private $img_diso;
+    private $nombre_dj;
   
+    public function getNombre_dj()
+    {
+        return $this->nombre_dj;
+    }
+
     public function getCod_disco()
     {
         return $this->cod_disco;
@@ -32,39 +38,11 @@ Class Disco{
 
     public function getImg_diso()
     {
-        return $this->img_diso;
+        return "<img src='img/$this->img_disco'height=100px width=90px>";
     }
 
-    public function setCod_disco($cod_disco)
-    {
-        $this->cod_disco = $cod_disco;
-    }
-
-    public function setNombre_disco($nombre_disco)
-    {
-        $this->nombre_disco = $nombre_disco;
-    }
-
-    public function setFecha_salida($fecha_salida)
-    {
-        $this->fecha_salida = $fecha_salida;
-    }
-
-    public function setDescripcion($descripcion)
-    {
-        $this->descripcion = $descripcion;
-    }
-
-    public function setAutor($autor)
-    {
-        $this->autor = $autor;
-    }
-    public function setImg_diso($img_diso)
-    {
-        $this->img_diso = $img_diso;
-    }
     public function __toString(){
-        return "El codigo del disco es " .$this->getCod_disco(). "nombre".$this->getNombre_disco()." Salio el ".$this->getFecha_salida()."El autor del disco es ".$this->getAutor()." La descripcion del disco es <br>".$this->getDescripcion()." Y este es el disco <p><img src='img/".$this->imagen."'width=100 heigth=100/></p>"."";
+        return "El codigo del disco es " .$this->getCod_disco(). "nombre".$this->getNombre_disco()." Salio el ".$this->getFecha_salida()."El autor del disco es ".$this->getAutor()." La descripcion del disco es <br>".$this->getDescripcion()." Y este es el disco".$this->getImg_diso()."";
     }
     
 }
