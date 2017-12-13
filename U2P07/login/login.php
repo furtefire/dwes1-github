@@ -52,7 +52,8 @@ if (isset($_SESSION["sesion1"])){
                 <p>Password</p>
                 <input type="password" name="passwd"><br><br>
            		<input type="submit" name="enviar">
-           		<p><a href="alta.php">¿Aún no tienes cuenta? Haz clic aquí para crear una</a></p>
+           		<p>¿Aún no tienes cuenta? </p>
+           		<p><a href="alta.php">Haz clic aquí para crear una</a></p>
            		<?php if (!empty($mensajeError)){
            		   echo "<h3>".$mensajeError."</h3>";
                 }?>
