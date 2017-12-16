@@ -39,11 +39,13 @@ $existe=$_REQUEST["id_disco"];
 include ('Cdiscos.php');
 if (!isset($existe))
     $resultado = $conexion->query("SELECT distinct * FROM discos");
-else if (isset($existe)){
+else
     $resultado =$conexion->query("select * from discos where discografica like '%$existe%' group by id ");
-}else if (isset($_POST['enviar'])){
+
+    
+ if (isset($_POST['enviar'])){
     $bus=$_POST['nombre'];
-    $resultado = $conexion->query("select distinct * from discos where nombre like '%$bus%'");
+    $resultado = $conexion->query("select * from discos where nombre like '%$bus%' order by id");
 }
 
 
@@ -71,6 +73,7 @@ while ($Disco = $resultado->fetch_object('Cdiscos')) {
 ?>
 </table>
 <?php
+echo $mensajeError;
 mysqli_close($conexion);
 ?>
 <a href='disco.php'>Volver</a>
