@@ -2,7 +2,7 @@
 session_start();
 if(isset($_REQUEST["cerrarSesion"])){
     unset($_SESSION ["sesion1"]);
-    header("location:login.php");
+    header("location:disco.php");
 }
 if (isset($_SESSION["sesion1"])){
     header("location: index.php");
@@ -15,7 +15,7 @@ if (isset($_SESSION["sesion1"])){
             $mensajeError="El nombre de usuario o la contraseña esta vacio";
             
         }else{
-            $conexion = new mysqli("localhost","alumno","alumno","catalogo16");
+            $conexion = new mysqli("localhost","alumno_rw","alumno_rw","catalogo16");
             $resultado = $conexion->query("select * from usuario");
             if($resultado->num_rows === 0) $mensajeError="No hay usuarios en la base de datos";
             while($fila=$resultado->fetch_assoc()) {
@@ -42,6 +42,7 @@ if (isset($_SESSION["sesion1"])){
         	   a:hover{font-weight: bold;}
         	   div h3{color:red;}
         	   body{background-color:lightblue};
+        	   div#error{color:red;};
         	</style>
         </head>
         <body>
@@ -52,12 +53,13 @@ if (isset($_SESSION["sesion1"])){
                 <p>Password</p>
                 <input type="password" name="passwd"><br><br>
            		<input type="submit" name="enviar">
-           		<p>¿Aún no tienes cuenta? </p>
-           		<p><a href="alta.php">Haz clic aquí para crear una</a></p>
-           		<?php if (!empty($mensajeError)){
-           		   echo "<h3>".$mensajeError."</h3>";
-                }?>
             </div>
+            <div>
+            		<p>¿Aún no tienes cuenta?</p>
+         			<a href="alta.php">Regístrate aquí</a>   		
+                     
+            </div>
+            <div id="error"><?php echo $mensajeError?></div>
         </form>
         </body>
         </html>
