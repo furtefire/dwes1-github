@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class PrimerServlet
  */
-@WebServlet("/Bienvenida")
+@WebServlet(urlPatterns={"/EjemploServletHttp","/Bienvenida"})
 public class EjemploServletHttp extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -25,6 +25,7 @@ public class EjemploServletHttp extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;UTF-8");
 		PrintWriter out = response.getWriter();
@@ -44,5 +45,8 @@ public class EjemploServletHttp extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
+	
+	public void init() {
+	    log("Iniciando el servlet HTTP");
+	  }
 }
