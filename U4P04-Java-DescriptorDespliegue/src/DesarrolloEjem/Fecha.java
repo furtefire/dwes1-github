@@ -1,3 +1,5 @@
+package DesarrolloEjem;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -9,32 +11,30 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Servlet implementation class SegundoSevlet
- */
-@WebServlet("/SegundoSevlet")
-public class SegundoSevlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public SegundoSevlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+/**
+ * Servlet implementation class Date
+ */
+//@WebServlet("/Date")
+public class Fecha extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Fecha() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html;UTF-8");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	response.setContentType("text/html;UTF-8");
 		Date date = new Date();
 		PrintWriter out = response.getWriter();
 		out.println("<html><head><meta charset='UTF-8'/><title>Primer Servlet</title></head>");
-		out.println("<body><h1>Segundo servlet</h1>");
-		out.println("<h3>Me llamo Sergio !!</h3>");
-		out.println("<p>Ejecución de " + request.getContextPath() + "</p>");
 		//Caso 1: obtener la hora y salida por pantalla con formato:
 		DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss");
 		out.println("Hora: "+hourFormat.format(date));
@@ -48,7 +48,6 @@ public class SegundoSevlet extends HttpServlet {
 		out.println("</body></html>");
 		out.close();
 		}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
