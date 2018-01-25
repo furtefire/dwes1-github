@@ -1,82 +1,95 @@
-<?php
-$eliminarcookie=false;
-
-if(count($_COOKIE)==0)
-    header("location:cookies/cookieidioma.php");
-else 
-    $idioma=$_COOKIE['idioma'];
-    if(isset($_REQUEST["eliminarcookie"])){
-        setcookie("idioma", null, time() + -1, "/Examen-1ev-PHP-SergioGuijarroMunoz");
-        header("location:cookies/cookieidioma.php");
-    }
-$mensajeError="";
-session_start();
-$conexion = new mysqli("localhost","alumno_rw","alumno_rw","examen1718-1ev-sigurros");
-$conexion->query("SET NAMES 'UTF8'");
-
-if (isset($_REQUEST["id_disco"]))
-$existe=$_REQUEST["id_disco"];
-    ?>
-    <html>
+<!-- PARA CAMBIAR DE IDIOMA, HAZ DOBLE CLICK SOBRE LA BANDERA -->
+<html>
 <head>
-<title>disco.php</title>
-<meta charset="UTF-8" />
+	<h1><img src='img/encabezado/encabezado.jpg'></h1>
+	<title>DISCO</title>
+	<meta charset="UTF-8"/>
 </head>
 <body>
-   <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
-		¿A quien buscamos?:<input type="text" name="nombre">
-		 <input	type="submit" name="enviar">
-	</form>
-
-    <table style='border: 0'>
-    <tr style='background-color: lightblue'>
-    <th>Titulo</th>
-    <th>Discografia</th>
-    <th>Año</th>
-    <th>Formato</th>
-    <th>Portada</th>
 <?php
-include ('Cdiscos.php');
-if (!isset($existe))
-    $resultado = $conexion->query("SELECT distinct * FROM discos");
-else
-    $resultado =$conexion->query("select * from discos where discografica like '%$existe%' group by id ");
-
-    
- if (isset($_POST['enviar'])){
-    $bus=$_POST['nombre'];
-    $resultado = $conexion->query("select * from discos where nombre like '%$bus%' order by id");
+$servidor = "localhost";
+$usuario = "alumno_rw";
+$clave = "dwes";
+echo "<h3>PARA CAMBIAR DE IDIOMA, HAZ DOBLE CLICK SOBRE LA BANDERA CORRESPONDIENTE</h3>";
+$mensaje='';
+$conexion = new mysqli($servidor,$usuario,$clave,"examen1718-1ev-sigurros");
+$conexion->query("SET NAMES 'UTF8'");
+if ($conexion->connect_errno) {
+    echo "<p>Error al establecer la conexión (" . $conexion->connect_errno . ") " . $conexion->connect_error . "</p>";
 }
-
-
-if ($resultado->num_rows === 0)
-    $mensajeError="fallo en la consulta sql";
-
-while ($Disco = $resultado->fetch_object('Cdiscos')) {
-    
-    echo "<tr bgcolor='lightgreen'>";
-    if($idioma=="es"){
-        $con=$Disco->getNombre();
-        $aux =$conexion->query("select nombre_e from temas where nombre_i like '%$con%' group by id");
-        $aux2=$aux->fetch_assoc();
-        echo "<td>" . $aux2['nombre_e'] . "</td>\n"; 
-        }    
-    else 
-        echo "<td>" . $Disco->getNombre() . "</td>\n";   
-    echo "<td><a href='disco.php?id_disco=".$Disco->getDiscografica()."'>" . $Disco->getDiscografica() . "</a></td>\n";
-    echo "<td>" . $Disco->getYear() . "</td>\n";
-    echo "<td>" . $Disco->getSoporte() . "</td>\n";
-    echo "<td>" . $Disco->getImagen() . "</td>\n";
- 
+$where='';
+if (isset($_GET['id'])){
+    $where=" WHERE id=".$_GET['id'];
+    $disco=$_GET['id'];
+}else{
+    $mensaje='Error, no se le ha pasado el id del disco.';
 }
-
+if (isset($_GET['idioma'])){
+    setcookie("idioma", $_GET['idioma'], time() +  (86400*30), "/Examen-1ev-PHP-AdrianLobato/"); // 86400 = segundos en 1 día
+}
+$select="SELECT numero, nombre_i AS nombre, minutos, segundos FROM temas WHERE id_disco=".$disco;
+if(isset($_COOKIE['idioma'])) {
+    if($_COOKIE['idioma']=="espanya"){
+        $select="SELECT numero, nombre_e AS nombre, minutos, segundos FROM temas WHERE id_disco=".$disco;
+    }elseif ($_COOKIE['idioma']=="islandia"){
+        $select="SELECT numero, nombre_i AS nombre, minutos, segundos FROM temas WHERE id_disco=".$disco;
+        
+    }
+}
+?>
+<table style='border:0'>
+<tr style='background-color:blue'>
+	<th>Título</th>
+	<th>Discografía </th>
+	<th>Año</th>
+	<th>Formato</th>
+	<th>Imagen portada</th>
+	<th>Idioma 'ESPAÑOL'</th>
+	<th>Idioma 'ISLANDÉS'</th>
+	<th>Comentarios</th>
+</tr>
+<?php
+$es="espanya";
+$is="islandia";
+$resultado = $conexion -> query("SELECT * FROM discos ".$where);
+if($resultado->num_rows === 0) echo "<p>No hay discos en la base de datos</p>";
+while ($cd=$resultado-> fetch_assoc()) {
+    
+   
+    echo "<tr bgcolor='green'>";
+    echo "<td>".$cd['nombre']."</td>\n";
+    echo "<td>".$cd['discografica']."</td>\n";
+    echo "<td>".$cd['year']."</td>\n";
+    echo "<td>".$cd['soporte']."</td>\n";
+    echo "<td><img src='img/discografia/".$cd['imagen'].".jpg'></td>\n";
+    echo "<td><a href='disco.php?id=".$disco."&idioma=".$es."'><img src='img/banderas/es.png'></a></td>\n";
+    echo "<td><a href='disco.php?id=".$disco."&idioma=".$is."'><img src='img/banderas/is.png'></a></td>\n";
+    echo "<td>".$cd['texto']."</td>\n";
+    echo "</tr>"; 
+    
+}
+    
 ?>
 </table>
-<?php
-echo $mensajeError;
-mysqli_close($conexion);
+<table style='border:0'>
+<tr style='background-color:ligthyellow'>
+	<th>Numero tema</th>
+	<th>Título</th>
+	<th>Duración</th>
+</tr>
+
+<?php 
+$resultado2 = $conexion -> query($select);
+while ($tema=$resultado2-> fetch_assoc()) {
+    echo "<tr bgcolor='ligthyellow'>";
+    echo "<td bgcolor='ligthyellow'>".$tema['numero']."</th>";
+    echo "<td bgcolor='ligthyellow'>".$tema['nombre']."</th>";
+    echo "<td bgcolor='ligthyellow'>".$tema['minutos'].":".$tema['segundos']."</th>";
+    echo "</tr>";    
+}
 ?>
-<a href='disco.php'>Volver</a>
-<a href="disco.php?eliminarcookie=true">cambiar idioma</a>
+</table>
+<a href='index.php'>Ver todo</a><br>
+<?php If($mensaje!='') echo $mensaje;?>
 </body>
 </html>
