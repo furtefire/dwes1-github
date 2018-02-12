@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>U4P07</title>
+</head>
+<body>
+<form action="/U4P07-Java-DatosPersonales/ValidarFormulario" method="post">
+    <div>
+        <label for="name">Nombre:</label>
+        <input type="text" name="name" />
+    </div>
+    <div>
+    	<label for="passwd">Contraseña</label>
+    	<input type="password" name="passwd"/> 
+    </div>
+    <div>
+        <label for="fecha">Fecha:</label>
+        <input type="date" name="fecha" />
+    </div>
+    <div>
+    	<label for="sex">Sexo:</label>
+    	Masculino:
+    	<input type="radio" name="sexo" value="masculino"/>
+		Femenino:
+    	<input type="radio" name="sexo" value="femenino"/>
+    	Otro:
+    	<input type="radio" name="sexo" value="otros"/>
+    </div>
+    <div>
+    <p>Mi genero de peliculas preferido</p>
+    <select name="genero">
+    <option value="terror">terror</option>
+    <option value="accion">accion</option>
+    <option value="drama">drama</option>
+    <option value="romance">romance</option>
+    <option value="comedia">comedia</option>
+    </select>
+    </div>
+        <div>
+        <label for="msg">Cita los titulos que recomiendas</label>
+        <textarea name="msg"></textarea>
+    </div>
+    <div>
+    <br></br>
+    <label for="REQUISITOS"></label>
+    <div>soy mayor de 18 años</div>
+    <input type="checkbox" name="edad" value="18+"/>
+    <div>Acepto las normas y politicas</div>
+    <input type="checkbox" name="edad" value="Acepta las normas"/>
+    </div>
+    <input type="submit" name="enviar" value="enviar">
+
+</form>
+</body>
+</html>
