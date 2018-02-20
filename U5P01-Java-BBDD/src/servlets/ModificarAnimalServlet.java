@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.Statement;
 
 import javax.servlet.ServletContext;
@@ -15,16 +14,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MostrarAnimalesServlet
+ * Servlet implementation class ModificarAnimalServlet
  */
-@WebServlet("/MostrarAnimales")
-public class MostrarAnimalesServlet extends HttpServlet {
+@WebServlet("/ModificarAnimal")
+public class ModificarAnimalServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MostrarAnimalesServlet() {
+    public ModificarAnimalServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -49,34 +48,15 @@ public class MostrarAnimalesServlet extends HttpServlet {
 		  String url = "jdbc:mariadb://localhost/animales";
 		  conn = DriverManager.getConnection(url, userName, password);
 
-		  // Paso 3: Crear sentencias SQL, utilizando objetos de tipo Statement
-		  sentencia = conn.createStatement();
-
-		  // Paso 4: Ejecutar la sentencia SQL a través de los objetos Statement
-		  String consulta = "SELECT * from animal";
-		  ResultSet rset = sentencia.executeQuery(consulta);
-
-		  // Paso 5: Mostrar resultados
-		  out.println("<table>");
-		  out.print("<tr style='background-color:lightblue'>\n" + 
-			  		"<th>Nombre</th>\n" + 
-			  		"<th>Especie</th>\n" + 
-			  		"<th>Imagen</th>\n" + 
-			  		"</tr>");
-		  if (!rset.isBeforeFirst() ) {    
-			    out.println("<h3>No hay resultados</p>");
-			}
-		  while (rset.next()) {
-			  out.println("\n <tr bgcolor='lightgreen'>");
-			  out.println("<td>"+rset.getString("nombre")+"</td>");
-			  out.println("<td>"+rset.getString("especie")+"</td>");
-			  out.println("<td><img src='./img/"+rset.getString("imagen")+"' width='100' heigth='100'/></td>");
-			  out.println("</tr>");
-//out.println("<p>" + rset.getString("nombre") + ", " + rset.getString("especie") + "</p>");
+		  // Paso 4: actualizar la tabla
+		  String consultaUpdate = "UPDATE animal SET especie='cerdo' WHERE nombre='Babe'";
+		  try {
+		  	int nFilas = sentencia.executeUpdate(consultaUpdate);
+		    out.println("<p>"+ nFilas + " filas afectadas</p>");
+		  } catch(Exception e) {
+		    out.println("<p>No se pudo actualizar la base de datos</p>");
 		  }
-		  out.println("</table>");
-
-		  // Paso 6: Desconexión
+		  // Paso 5: Desconexión
 		  if (sentencia != null)
 		    sentencia.close();
 		  if (conn != null)
@@ -84,7 +64,7 @@ public class MostrarAnimalesServlet extends HttpServlet {
 		} catch (Exception e) {
 		  e.printStackTrace();
 		}
-		out.println("<a href='http://localhost:8080/U5P01-Java-BBDD/ModificarAnimal'>ModificarAnimal</a>");
+		out.println("<a href='http://localhost:8080/U5P01-Java-BBDD/MostrarAnimales'>volver</a>");
 		out.println("</body></html>");
 	}
 
