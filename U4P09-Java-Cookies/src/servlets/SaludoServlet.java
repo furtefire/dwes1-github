@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class SaludoServlet
  */
-@WebServlet("/Saludo")
+@WebServlet("/SaludoServlet")
 public class SaludoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -38,7 +38,6 @@ public class SaludoServlet extends HttpServlet {
 			response.sendRedirect(request.getRequestURI());
 		}
 		if(session.isNew()) {
-			out.println("Damos la bienvenida a Alberto");
 		}else {
 
 			if (request.getMethod().equals("POST")) {
@@ -52,12 +51,11 @@ public class SaludoServlet extends HttpServlet {
 		out.println("<html><body>");
 		if(session.getAttribute("nombre")!=null && !session.getAttribute("nombre").equals("") ) {
 			String nombre =session.getAttribute("nombre").toString();
-
 			out.println("<h1>Bienvenido "+nombre+"</h1>");
 			out.println("<a href='"+request.getRequestURI()+"?cerrarSesion=true'>Cerrar Sesion</a>");
 		}else {
 			out.println("<form action='"+request.getRequestURI()+"' method='post'>");
-			out.println("<label>Introduce tu nombre:</label> <input type='text' name='nombre'/>");
+			out.println("<label>¿Como te llamas?:</label> <input type='text' name='nombre'/>");
 			if(!mensajeError.isEmpty()) {
 				out.println("<span class='error'>" + mensajeError + "</span><br/>");
 			}

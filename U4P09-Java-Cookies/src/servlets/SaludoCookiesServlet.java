@@ -46,6 +46,7 @@ public class SaludoCookiesServlet extends HttpServlet {
 				errorUsuario = "Debes introducir un nombre";
 			} else {
 				Cookie nuevaCookieUsuario = new Cookie("usuario", usuario);
+				nuevaCookieUsuario.setMaxAge(60*60);
 				nuevaCookieUsuario.setPath("/U4P09-Java-Cookies");
 				response.addCookie(nuevaCookieUsuario);
 				response.sendRedirect(request.getRequestURI());
@@ -59,6 +60,7 @@ public class SaludoCookiesServlet extends HttpServlet {
 		if (request.getParameter("eliminarCookie") != null) {
 			Cookie cookieCaducada = new Cookie("usuario","");
 			cookieCaducada.setMaxAge(0);
+			cookieCaducada.setPath("/U4P09-Java-Cookies");
 			response.addCookie(cookieCaducada);
 			// es necesario refrescar para que se lea la cookie
 			response.sendRedirect(request.getRequestURI());
