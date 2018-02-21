@@ -85,6 +85,7 @@ public class MostrarAnimalesServlet extends HttpServlet {
 		  e.printStackTrace();
 		}
 		out.println("<a href='http://localhost:8080/U5P01-Java-BBDD/ModificarAnimal'>ModificarAnimal</a>");
+		out.println("<a href='/U5P01-Java-BBDD/MostrarCuidadores'>Seleccionar cuidador</a>");
 		out.println("</body></html>");
 	}
 
