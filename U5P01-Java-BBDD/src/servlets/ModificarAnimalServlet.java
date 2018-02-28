@@ -43,9 +43,9 @@ public class ModificarAnimalServlet extends HttpServlet {
 		  Class.forName("org.mariadb.jdbc.Driver").newInstance();
 
 		  // Paso 2: Conectarse a la Base de Datos utilizando la clase Connection
-		  String userName = "alumno";
-		  String password = "alumno";
-		  String url = "jdbc:mariadb://localhost/animales";
+		  String userName = contexto.getInitParameter("UsuarioLectura");//"alumno";
+		  String password = contexto.getInitParameter("PasswordLectura");//"alumno";
+		  String url = contexto.getInitParameter("URL");//"jdbc:mariadb://localhost/animales";
 		  conn = DriverManager.getConnection(url, userName, password);
 
 		  // Paso 4: actualizar la tabla
