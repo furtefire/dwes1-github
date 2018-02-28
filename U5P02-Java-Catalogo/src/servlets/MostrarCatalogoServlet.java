@@ -52,67 +52,68 @@ public class MostrarCatalogoServlet extends HttpServlet {
 			conn = DriverManager.getConnection(url, userName, password);
 			// Paso 3: Crear sentencias SQL, utilizando objetos de tipo Statement
 			sentencia = conn.createStatement();
-			String consulta=" ";
-			if(request.getParameter("orden")!=null) {
-				  if(request.getParameter("orden").equalsIgnoreCase("asc")) {
-					  consulta="SELECT distinct disco.*,autor_dj.nombre_dj,autor_dj.cod_DJ,autor_dj.img_autor  FROM disco,autor_dj where disco.autor = autor_dj.cod_DJ GROUP BY cod_disco ORDER by disco.nombre_disco ASC";
-				  }else if(request.getParameter("orden").equalsIgnoreCase("desc")){
-					  consulta="SELECT distinct disco.*,autor_dj.nombre_dj,autor_dj.cod_DJ,autor_dj.img_autor  FROM disco,autor_dj where disco.autor = autor_dj.cod_DJ GROUP BY cod_disco ORDER by disco.nombre_disco DESC";
-				  }
-			}else {
-				consulta = "SELECT distinct disco.*,autor_dj.nombre_dj ,autor_dj.cod_DJ,autor_dj.img_autor FROM disco,autor_dj where disco.autor = autor_dj.cod_DJ GROUP BY cod_disco";
-			}
-			if(request.getParameter("busqueda")!=null) {
-				consulta = "SELECT distinct disco.*,autor_dj.nombre_dj ,autor_dj.cod_DJ,autor_dj.img_autor FROM disco,autor_dj where disco.autor = autor_dj.cod_DJ and nombre_dj and autor_dj.nombre_dj like '%"+request.getParameter("busqueda")+"%'";
-			}
-				// Paso 4: Ejecutar la sentencia SQL a través de los objetos Statement		
-				ResultSet rset = sentencia.executeQuery(consulta);
-				// Paso 5: Mostrar resultados
-				if (!rset.isBeforeFirst() ) {    
-					out.println("<h3>No hay resultados</p>");
+			String consulta="SELECT distinct disco.*,autor_dj.nombre_dj ,autor_dj.cod_DJ,autor_dj.img_autor FROM disco,autor_dj where disco.autor = autor_dj.cod_DJ GROUP BY cod_disco";
+			
+				if(request.getParameter("orden")!=null) {
+				
+				if(request.getParameter("orden").equalsIgnoreCase("asc")) {
+					consulta="SELECT distinct disco.*,autor_dj.nombre_dj,autor_dj.cod_DJ,autor_dj.img_autor  FROM disco,autor_dj where disco.autor = autor_dj.cod_DJ GROUP BY cod_disco ORDER by disco.nombre_disco ASC";
+				}else if(request.getParameter("orden").equalsIgnoreCase("desc")){
+					consulta="SELECT distinct disco.*,autor_dj.nombre_dj,autor_dj.cod_DJ,autor_dj.img_autor  FROM disco,autor_dj where disco.autor = autor_dj.cod_DJ GROUP BY cod_disco ORDER by disco.nombre_disco DESC";
 				}
-				out.println("<html> <head> <meta charset='UTF-8'/></head><body>");
-				out.println("<form action='"+request.getRequestURI()+"' method='post'>");
-				out.println("<input class='form-control' placeholder='Buscar' type='text' name='busqueda'/>");
-				out.println("<input type='submit' name='enviar' value='Enviar'/>");
-				out.println("<table style='border: 0'>"
-						+ "<tr style='background-color: lightblue'>");
-				out.println("<th>Cod</th>"
-							+"<th>Nombre<a href='./MostrarCatalogo?orden=asc'>&#9650</a><a href='./MostrarCatalogo?orden=desc'>&#9660</a></th>"
-							+ "<th>Fch_salida</th>"
-							+ "<th>Descripcion</th>"
-							+ "<th>Img</th>"
-							+ "<th>Nombre_dj</th>"
-							+ "<th>Datos</th>");
-							out.println("</tr>");
-	
-				while (rset.next()) {
-					obra=new Obra(rset.getInt("cod_disco"), rset.getString("nombre_disco"), rset.getDate("fecha_salida"),rset.getString("descripcion"),rset.getString("nombre_dj"),rset.getString("img_disco"),rset.getInt("cod_dj"),rset.getString("img_autor"));
-					out.println("<tr bgcolor='lightgreen'>");
-						out.println("<td>"+obra.getCod_disco()+"</td>"
-								+"<td>"+obra.getNombre_disco()+"</td>"
-								+"<td>"+obra.getFecha_salida()+"</td>"
-								+"<td>"+obra.getDescripcion()+"</td>"
-								+"<td><img width=100px src='./img/"+obra.getImg_disco()+"'/>"+"</td>"
-								+"<td><a href='http://localhost:8080/U5P02-Java-Catalogo/MostrarObra?cod_disco="+obra.getCod_disco()+"'>"+obra.getAutor()+"</a></td>"
-								+"<td><a href='http://localhost:8080/U5P02-Java-Catalogo/MostrarAutor?cod_DJ="+obra.getCod_DJ()+"'>ver</a></td>");
-					out.println("</tr>");	
-					
+				}else {
+					consulta = "SELECT distinct disco.*,autor_dj.nombre_dj ,autor_dj.cod_DJ,autor_dj.img_autor FROM disco,autor_dj where disco.autor = autor_dj.cod_DJ GROUP BY cod_disco";
 				}
-				out.println("</table>");
-				out.println("<a href='./MostrarCatalogo'><button>Limpiar filtros</button></a>");
-				// Paso 6: Desconexión
-				  if (rset != null)
-					    rset.close();
-					  if (sentencia != null)
-					    sentencia.close();
-					  if (conn != null)
-					    conn.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-				out.println("<p>No existe</p>");
-			}  
+				if(request.getParameter("busqueda")!=null) {
+					consulta = "SELECT * FROM disco,autor_dj where disco.autor = autor_dj.cod_DJ  and autor_dj.nombre_dj like '%"+request.getParameter("busqueda")+"%'";
+				}
+			// Paso 4: Ejecutar la sentencia SQL a través de los objetos Statement		
+			ResultSet rset = sentencia.executeQuery(consulta);
+			// Paso 5: Mostrar resultados
+			if (!rset.isBeforeFirst()) {    
+				out.println("<h3>No hay resultados</p>");
+			}
+			out.println("<html> <head> <meta charset='UTF-8'/></head><body>");
+			out.println("<form action='http://localhost:8080/U5P02-Java-Catalogo/MostrarCatalogo' method='post'>");
+			out.println("<input type='text' name='busqueda'/>");
+			out.println("<input type='submit' name='enviar' value='Enviar'/>");
+			out.println("<table style='border: 0'>"
+					+ "<tr style='background-color: lightblue'>");
+			out.println("<th>Cod</th>"
+					+"<th>Nombre<a href='./MostrarCatalogo?orden=asc'>&#9650</a><a href='./MostrarCatalogo?orden=desc'>&#9660</a></th>"
+					+ "<th>Fch_salida</th>"
+					+ "<th>Descripcion</th>"
+					+ "<th>Img</th>"
+					+ "<th>Nombre_dj</th>"
+					+ "<th>Datos</th>");
+			out.println("</tr>");
 
+			while (rset.next()) {
+				obra=new Obra(rset.getInt("cod_disco"), rset.getString("nombre_disco"), rset.getDate("fecha_salida"),rset.getString("descripcion"),rset.getString("nombre_dj"),rset.getString("img_disco"),rset.getInt("cod_dj"),rset.getString("img_autor"));
+				out.println("<tr bgcolor='lightgreen'>");
+				out.println("<td>"+obra.getCod_disco()+"</td>"
+						+"<td>"+obra.getNombre_disco()+"</td>"
+						+"<td>"+obra.getFecha_salida()+"</td>"
+						+"<td>"+obra.getDescripcion()+"</td>"
+						+"<td><img width=100px src='./img/"+obra.getImg_disco()+"'/>"+"</td>"
+						+"<td><a href='http://localhost:8080/U5P02-Java-Catalogo/MostrarObra?cod_disco="+obra.getCod_disco()+"'>"+obra.getAutor()+"</a></td>"
+						+"<td><a href='http://localhost:8080/U5P02-Java-Catalogo/MostrarAutor?cod_DJ="+obra.getCod_DJ()+"'>ver</a></td>");
+				out.println("</tr>");	
+
+			}
+			out.println("</table>");
+			out.println("<a href='http://localhost:8080/U5P02-Java-Catalogo/MostrarCatalogo'><button>Limpiar filtros</button></a>");
+			// Paso 6: Desconexión
+			if (rset != null)
+				rset.close();
+			if (sentencia != null)
+				sentencia.close();
+			if (conn != null)
+				conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+			out.println("<p>No existe</p>");
+		}  
 		out.println("</body></html>");
 	}
 
