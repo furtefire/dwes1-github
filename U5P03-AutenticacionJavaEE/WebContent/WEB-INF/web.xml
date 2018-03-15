@@ -28,8 +28,7 @@
   <context-param>
     <param-name>psw_db_rw</param-name>
     <param-value>dwes</param-value>
-  </context-param>
-  
+  </context-param> 
     <filter>
     <filter-name>LoginFilter</filter-name>
     <filter-class>filtros.LoginFilter</filter-class>

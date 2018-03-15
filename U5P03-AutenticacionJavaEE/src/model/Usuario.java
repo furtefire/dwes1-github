@@ -1,6 +1,7 @@
 package model;
 
 public class Usuario {
+
 	private String login;
 	private String password;
 	private String nombre;
@@ -43,5 +44,9 @@ public class Usuario {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
+	@Override
+	public String toString() {
+		return "Usuario [login=" + login + ", password=" + password + ", nombre=" + nombre + ", admin=" + admin
+				+ ", descripcion=" + descripcion + "]";
+	}
 }

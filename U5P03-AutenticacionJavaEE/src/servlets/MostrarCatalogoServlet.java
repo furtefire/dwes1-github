@@ -74,13 +74,13 @@ public class MostrarCatalogoServlet extends HttpServlet {
 				out.println("<h3>No hay resultados</p>");
 			}
 			out.println("<html> <head> <meta charset='UTF-8'/></head><body>");
-			out.println("<form action='"+request.getRequestURI()+"MostrarCatalogo' method='post'>");
+			out.println("<form action='./MostrarCatalogo' method='post'>");
 			out.println("<input type='text' name='busqueda'/>");
 			out.println("<input type='submit' name='enviar' value='Enviar'/>");
 			out.println("<table style='border: 0'>"
 					+ "<tr style='background-color: lightblue'>");
 			out.println("<th>Cod</th>"
-					+"<th>Nombre<a href='"+request.getRequestURI()+"MostrarCatalogo?orden=asc'>&#9650</a><a href='./MostrarCatalogo?orden=desc'>&#9660</a></th>"
+					+"<th>Nombre<a href='./MostrarCatalogo?orden=asc'>&#9650</a><a href='./MostrarCatalogo?orden=desc'>&#9660</a></th>"
 					+ "<th>Fch_salida</th>"
 					+ "<th>Descripcion</th>"
 					+ "<th>Img</th>"
@@ -96,8 +96,8 @@ public class MostrarCatalogoServlet extends HttpServlet {
 						+"<td>"+obra.getFecha_salida()+"</td>"
 						+"<td>"+obra.getDescripcion()+"</td>"
 						+"<td><img width=100px src='./img/"+obra.getImg_disco()+"'/>"+"</td>"
-						+"<td><a href='"+request.getRequestURI()+"MostrarObra?cod_disco="+obra.getCod_disco()+"'>"+obra.getAutor()+"</a></td>"
-						+"<td><a href='"+request.getRequestURI()+"MostrarAutor?cod_DJ="+obra.getCod_DJ()+"'>ver</a></td>");
+						+"<td><a href='./MostrarObra?cod_disco="+obra.getCod_disco()+"'>"+obra.getAutor()+"</a></td>"
+						+"<td><a href='./MostrarAutor?cod_DJ="+obra.getCod_DJ()+"'>ver</a></td>");
 				out.println("</tr>");	
 
 			}
@@ -119,7 +119,7 @@ public class MostrarCatalogoServlet extends HttpServlet {
 		}  
 	
 		Usuario usuario = (Usuario) session.getAttribute("usuario");
-		out.println("<h4>Sesión iniciada como <a href='"+request.getRequestURI()+"Cuenta'>" 
+		out.println("<h4>Sesión iniciada como <a href='http://localhost:8080/U5P03-AutenticacionJavaEE/Cuenta'>" 
 			+ usuario.getNombre() + "</a></h4>");
 		out.println("</body></html>");
 	}

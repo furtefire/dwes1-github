@@ -106,7 +106,7 @@ public class MostrarAutorServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		Usuario usuario = (Usuario) session.getAttribute("usuario");
-		out.println("<h4>Sesión iniciada como <a href='"+request.getRequestURI()+"Cuenta'>" 
+		out.println("<h4>Sesión iniciada como <a href='http://localhost:8080/U5P03-AutenticacionJavaEE/Cuenta'>" 
 			+ usuario.getNombre() + "</a></h4>");
 		out.println("</body></html>");
 	}
